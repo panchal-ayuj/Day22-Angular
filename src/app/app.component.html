@@ -1,0 +1,18 @@
+<div class="wrapper" *ngIf="!isSubmitted">
+    {{title | customUpper}} Sample text
+    <form #myForm="ngForm" (ngSubmit)="onSubmit()">
+        <input type="text" name="id" [(ngModel)]="id" required
+        #inpId="ngModel"/><br>
+        <p [hidden]="inpId.valid || inpId.pristine">Id is required</p>
+        <select id="gift" [disabled]="!id || id.trim().length === 0" name="gift">
+            <option *ngFor="let gift of gifts" [value]="gift">{{gift}}</option>
+        </select><br><br>
+        <button type="submit" [disabled]="!myForm.valid">Submit</button>
+        <button type="button" (click)="onReset()">Reset</button>
+    </form>
+</div>
+<app-reactive [id]="id" *ngIf="isSubmitted" (event)="onEvent($event)"></app-reactive>
+
+<!-- ngif invalid -> shows -->
+<!-- hidden if valid -->
+<!-- tsconfig force initializations -->
